@@ -1,7 +1,7 @@
 using SW.Auth.Web.Resources.Accounts;
 using SW.PrimitiveTypes;
 
-namespace SW.Auth.Web.Domain.Account;
+namespace SW.Auth.Web.Domain;
 
 public class Account : BaseEntity<Guid>, IAudited
 {

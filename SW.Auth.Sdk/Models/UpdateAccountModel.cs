@@ -1,4 +1,4 @@
-namespace SW.Auth.Sdk.models.Accounts;
+namespace SW.Auth.Sdk.Models;
 
 public class UpdateAccountModel
 {

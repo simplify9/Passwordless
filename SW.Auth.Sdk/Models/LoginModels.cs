@@ -1,4 +1,4 @@
-namespace SW.Auth.Sdk.models.Auth;
+namespace SW.Auth.Sdk.Models;
 
 public class LoginRequestModel
 {

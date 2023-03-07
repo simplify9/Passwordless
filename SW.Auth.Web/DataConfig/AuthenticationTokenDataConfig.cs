@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SW.Auth.Web.Domain.Auth;
+using SW.Auth.Web.Domain;
 
 namespace SW.Auth.Web.DataConfig;
 

@@ -1,6 +1,6 @@
 using System.Data.Common;
 
-namespace SW.Auth.Sdk.models.Accounts;
+namespace SW.Auth.Sdk.Models;
 
 public class AccountModel
 {

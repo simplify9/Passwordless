@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using SW.Auth.Web.Domain.Account;
+using SW.Auth.Web.Domain;
 using SW.Auth.Web.Extensions;
 using SW.PrimitiveTypes;
 
 namespace SW.Auth.Web.Resources.Accounts;
 
-[HandlerName("me")]
-public class Me : IQueryHandler
+[HandlerName("myprofile")]
+public class MyProfile : IQueryHandler
 {
     private readonly SwDbContext _db;
     private readonly RequestContext _requestContext;
 
-    public Me(SwDbContext db, RequestContext requestContext)
+    public MyProfile(SwDbContext db, RequestContext requestContext)
     {
         _db = db;
         _requestContext = requestContext;

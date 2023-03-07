@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using SW.Auth.Sdk.models.Accounts;
-using SW.Auth.Web.Domain.Account;
+using SW.Auth.Sdk.Models;
+using SW.Auth.Web.Domain;
 using SW.Auth.Web.Extensions;
 using SW.PrimitiveTypes;
 

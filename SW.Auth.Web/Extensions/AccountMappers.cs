@@ -1,5 +1,5 @@
-using SW.Auth.Sdk.models.Accounts;
-using SW.Auth.Web.Domain.Account;
+using SW.Auth.Sdk.Models;
+using SW.Auth.Web.Domain;
 
 namespace SW.Auth.Web.Extensions;
 

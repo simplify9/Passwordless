@@ -1,46 +1,48 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using SW.Auth.Sdk.models.Auth;
-using SW.Auth.Web.Domain.Auth;
+using SW.Auth.Sdk.Models;
+using SW.Auth.Web.Domain;
 using SW.Auth.Web.Extensions;
 using SW.HttpExtensions;
 using SW.PrimitiveTypes;
 
-namespace SW.Auth.Web.Resources.Auth;
+namespace SW.Auth.Web.Resources.Accounts;
 
+[HandlerName(nameof(Login))]
 [Unprotect]
-[HandlerName(nameof(Refresh))]
-public class Refresh : ICommandHandler<RefreshRequestModel>
+public class Login : ICommandHandler<LoginRequestModel>
 {
     private readonly SwDbContext _db;
     private readonly InstanceSettings _instanceSettings;
     private readonly JwtTokenParameters _jwtTokenParameters;
 
-    public Refresh(SwDbContext db, InstanceSettings instanceSettings, JwtTokenParameters jwtTokenParameters)
+    public Login(SwDbContext db, InstanceSettings instanceSettings, JwtTokenParameters jwtTokenParameters)
     {
         _db = db;
         _instanceSettings = instanceSettings;
         _jwtTokenParameters = jwtTokenParameters;
     }
 
-    public async Task<object> Handle(RefreshRequestModel request)
+    public async Task<object> Handle(LoginRequestModel request)
     {
-        var token = await _db.Set<RefreshToken>()
+        var token = await _db.Set<AuthenticationToken>()
             .Include(i => i.Account)
-            .FirstOrDefaultAsync(i => i.Id.Equals(request.RefreshToken));
-
+            .FirstOrDefaultAsync(i => i.Id.Equals(request.Token));
 
         if (token is null)
             throw new SWUnauthorizedException("Invalid token");
 
-        if ((DateTime.UtcNow - token.CreatedOn).TotalDays > _instanceSettings.RefreshTokenExpirySpanInDays)
-            return (false, "Your authentication token has expired");
+        var (isValid, reason) = token.Validate(request.Password, _instanceSettings.AccessTokenExpirySpanInSeconds);
+        if (!isValid)
+            throw new SWUnauthorizedException(reason);
 
 
+        token.Account.LoggedIn();
         var refreshToken = new RefreshToken(token.AccountId);
         _db.Add(refreshToken);
-        _db.Remove(token);
         await _db.SaveChangesAsync();
+
+
         return new LoginResponseModel
         {
             Type = "Bearer",
@@ -50,11 +52,12 @@ public class Refresh : ICommandHandler<RefreshRequestModel>
         };
     }
 
-    private class Validate : AbstractValidator<RefreshRequestModel>
+    private class Validate : AbstractValidator<LoginRequestModel>
     {
         public Validate()
         {
-            RuleFor(i => i.RefreshToken).NotEmpty();
+            RuleFor(i => i.Password).NotEmpty();
+            RuleFor(i => i.Token).NotEmpty();
         }
     }
 }

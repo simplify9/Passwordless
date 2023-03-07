@@ -1,6 +1,6 @@
 using SW.PrimitiveTypes;
 
-namespace SW.Auth.Web.Domain.Auth;
+namespace SW.Auth.Web.Domain;
 
 public class RefreshToken : BaseEntity<Guid>
 {
@@ -16,6 +16,6 @@ public class RefreshToken : BaseEntity<Guid>
     }
 
     public Guid AccountId { get; set; }
-    public Account.Account Account { get; set; }
+    public Account Account { get; set; }
     public DateTime CreatedOn { get; set; }
 }

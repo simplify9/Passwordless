@@ -1,12 +1,11 @@
 using System.Globalization;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using SW.Auth.Sdk.models.Auth;
-using SW.Auth.Web.Domain.Account;
-using SW.Auth.Web.Domain.Auth;
+using SW.Auth.Sdk.Models;
+using SW.Auth.Web.Domain;
 using SW.PrimitiveTypes;
 
-namespace SW.Auth.Web.Resources.Auth;
+namespace SW.Auth.Web.Resources.Accounts;
 
 [Unprotect]
 [HandlerName("Generate")]

@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using SW.Auth.Web.Domain.Account;
+using SW.Auth.Web.Domain;
 using SW.HttpExtensions;
 
 namespace SW.Auth.Web.Extensions;
