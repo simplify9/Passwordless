@@ -21,8 +21,7 @@ namespace SW.Auth.Web.Migrations
                     id = table.Column<Guid>(type: "uuid", maxLength: 32, nullable: false),
                     first_name = table.Column<string>(type: "text", nullable: true),
                     last_name = table.Column<string>(type: "text", nullable: true),
-                    email = table.Column<string>(type: "text", nullable: true),
-                    normalized_email = table.Column<string>(type: "text", nullable: true),
+                    phone = table.Column<string>(type: "text", nullable: true),
                     date_of_birth = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     account_info = table.Column<Dictionary<string, string>>(type: "jsonb", nullable: true),
                     last_login = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -86,10 +85,10 @@ namespace SW.Auth.Web.Migrations
                 column: "created_on");
 
             migrationBuilder.CreateIndex(
-                name: "ix_accounts_normalized_email",
+                name: "ix_accounts_phone",
                 schema: "main",
                 table: "accounts",
-                column: "normalized_email",
+                column: "phone",
                 unique: true);
 
             migrationBuilder.CreateIndex(

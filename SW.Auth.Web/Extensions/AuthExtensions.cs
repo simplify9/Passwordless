@@ -20,7 +20,7 @@ public static class UserExtensions
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-            new Claim(ClaimTypes.Email, account.NormalizedEmail),
+            new Claim("phone", account.Phone),
         };
 
         return new ClaimsIdentity(claims, "Auth");

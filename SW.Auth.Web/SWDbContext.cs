@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SW.EfCoreExtensions;
 using SW.PrimitiveTypes;
-
 namespace SW.Auth.Web;
 
 public class SwDbContext : DbContext

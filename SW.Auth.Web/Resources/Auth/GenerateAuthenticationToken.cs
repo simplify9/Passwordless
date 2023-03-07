@@ -24,11 +24,11 @@ public class GenerateAuthenticationToken : ICommandHandler<GenerateAuthenticatio
     public async Task<object> Handle(GenerateAuthenticationTokenModel request)
     {
         var account = await _db.Set<Account>()
-            .FirstOrDefaultAsync(i => i.NormalizedEmail.Equals(request.Email.ToUpper()));
+            .FirstOrDefaultAsync(i => i.Phone == request.Phone);
 
         if (account is null)
         {
-            account = new Account(request.Email);
+            account = new Account(request.Phone);
             _db.Add(account);
         }
 
@@ -51,7 +51,19 @@ public class GenerateAuthenticationToken : ICommandHandler<GenerateAuthenticatio
     {
         public Validate()
         {
-            RuleFor(i => i.Email).NotEmpty().EmailAddress();
+            RuleFor(i => i.Phone).Must(phone =>
+            {
+                try
+                {
+                    var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
+                    return phoneNumberUtil.IsValidNumber(phoneNumberUtil.Parse(phone, null));
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }).WithMessage("Invalid Phone Number");
+            RuleFor(i => i.Phone).NotEmpty();
         }
     }
 }

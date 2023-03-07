@@ -12,7 +12,7 @@ public class ContactAddressConfig : IEntityTypeConfiguration<Account>
         builder.HasKey(i => i.Id);
         builder.Property(i => i.Id).HasMaxLength(32);
         builder.HasIndex(i => i.CreatedOn);
-        builder.HasIndex(i => i.NormalizedEmail).IsUnique();
+        builder.HasIndex(i => i.Phone).IsUnique();
         builder.Property(i => i.AccountInfo).HasColumnType("jsonb");
         builder.ToTable("accounts");
     }

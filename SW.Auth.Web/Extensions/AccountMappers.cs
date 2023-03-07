@@ -10,6 +10,7 @@ public static class Mappers
         return new AccountModel
         {
             Id = account.Id,
+            Phone = account.Phone,
             AccountInfo = account.AccountInfo,
             ModifiedOn = account.ModifiedOn,
             CreatedOn = account.CreatedOn,

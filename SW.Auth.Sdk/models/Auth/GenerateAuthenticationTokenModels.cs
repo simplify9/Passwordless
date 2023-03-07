@@ -2,7 +2,7 @@ namespace SW.Auth.Sdk.models.Auth;
 
 public class GenerateAuthenticationTokenModel
 {
-    public string Email { get; set; }
+    public string Phone { get; set; }
 }
 
 public class GenerateAuthenticationTokenResponseModel

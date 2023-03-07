@@ -10,17 +10,16 @@ public class Account : BaseEntity<Guid>, IAudited
     }
 
 
-    public Account(string email)
+    public Account(string phone)
     {
         Id = Guid.NewGuid();
         AccountInfo = new Dictionary<string, string>();
-        SetEmail(email);
+        Phone = phone;
     }
 
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string Email { get; private set; }
-    public string NormalizedEmail { get; private set; }
+    public string Phone { get; set; }
     public DateTime? DateOfBirth { get; set; }
 
     public Dictionary<string, string> AccountInfo { get; set; }
@@ -45,11 +44,5 @@ public class Account : BaseEntity<Guid>, IAudited
         {
             DateOfBirth = dateOfBirth.Value.Date;
         }
-    }
-
-    public void SetEmail(string email)
-    {
-        Email = email;
-        NormalizedEmail = email.ToUpper();
     }
 }
